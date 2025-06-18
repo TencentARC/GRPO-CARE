@@ -312,37 +312,6 @@ def _z3_params_to_fetch(param_list):
         if hasattr(p, 'ds_id') and p.ds_status == ZeroParamStatus.NOT_AVAILABLE
     ]
 
-def update_ema_safe(model, ref_model, decay, accelerator):
-    print(type(ref_model))
-    for n, p in ref_model.named_parameters():
-        print(n, p.shape)
-
-    with unwrap_model_for_generation(ref_model, accelerator) as ema_model:
-        print(type(ema_model))
-        print(ema_model)
-        for n, p in ema_model.named_parameters():
-            print(n, p)
-    
-    with unwrap_model_for_generation(model, accelerator) as online_model:
-        print(type(online_model))
-        for n, p in online_model.named_parameters():
-            print(n, p)
-
-
-    # with unwrap_model_for_generation(ref_model, accelerator), unwrap_model_for_generation(model, accelerator) as ema_model, online_model:
-    #     with torch.no_grad():
-    #         # 逐参数更新，避免全模型加载
-    #         for p_ema, p_online in zip(ema_model.parameters(), 
-    #                                     online_model.parameters()):
-    #             print(p_ema, p_online)
-    #             # 类型安全处理
-    #             if p_ema.dtype != p_online.dtype:
-    #                 p_online = p_online.to(p_ema.dtype)
-    #             # 原地更新
-    #             p_ema.data.mul_(decay).add_(p_online.data, alpha=1-decay)
-        
-
-
 def moving_average(model, model_ema, accelerator, beta=0.992, device=None, zero_stage=0):
     # print(type(model), type(model_ema))
     if beta == 0:
@@ -352,30 +321,13 @@ def moving_average(model, model_ema, accelerator, beta=0.992, device=None, zero_
         with torch.no_grad():
             for (n, param), (n_ema, param_ema) in zip(model.named_parameters(),
                                         model_ema.named_parameters()):
-                # TODO: use prefiltering for efficiency
-                # print(n, param, n_ema, param_ema)
-                # print(n, n_ema, param.shape, param_ema.shape)
                 params_to_fetch = _z3_params_to_fetch([param, param_ema
                                                     ]) if zero_stage_3 else []
                 should_gather_param = len(params_to_fetch) > 0
-                # print(should_gather_param, params_to_fetch)
-                # print(f"{accelerator.process_index}: {n_ema}, {should_gather_param}, {param_ema.shape}")
                 
                 with deepspeed.zero.GatheredParameters(
                         params_to_fetch, enabled=should_gather_param):
-                    # data = param.data
-                    # if device is not None:
-                    #     data = data.to(device)
-                    # if accelerator.is_main_process:
                     param_ema.data.copy_(torch.lerp(param.data, param_ema.data, beta))
-                    # print(f"{accelerator.process_index}: {n_ema}, {param_ema.data.shape}, {param_ema}")
-
-                  
-                # with deepspeed.zero.GatheredParameters(
-                #     params_to_fetch, enabled=should_gather_param):
-                #     if dist.get_rank() == 0:  
-                #         param_ema.data.copy_(torch.lerp(param.data, param_ema.data, beta))
-                # dist.barrier()
 
 def clone_zero_model(src_model, dst_model, zero_stage=0):
     zero_stage_3 = (zero_stage == 3)
@@ -2832,14 +2784,14 @@ class EmaTrainer:
                         self.control = self.callback_handler.on_step_end(args, self.state, self.control)
 
                         if (self.ref_ema_decay is not None) and (self.state.global_step % self.ref_ema_update_every == 0):
-                            print("Updating ref_model using EMA ....")
+                            # print("Updating ref_model using EMA ....")
                             moving_average(
                                 model=model, model_ema=self.ref_model, accelerator=self.accelerator,
                                 beta=self.ref_ema_decay, device=None, 
                                 zero_stage=self.accelerator.state.deepspeed_plugin.zero_stage
                             )
                             self.accelerator.wait_for_everyone()
-                            print("Finished updating ref_model using EMA !!")
+                            # print("Finished updating ref_model using EMA !!")
 
                         self._maybe_log_save_evaluate(
                             tr_loss,

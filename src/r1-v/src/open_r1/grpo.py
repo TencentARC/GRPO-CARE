@@ -56,50 +56,18 @@ class GRPOScriptArguments(ScriptArguments):
         default=3136,
         metadata={"help": "Minimum number of pixels for the image"},
     )
-    # temporal: Optional[bool] = field(
-    #     default=True,
-    #     metadata={"help": "whether using temporal GRPO"},
-    # )
     len_control: Optional[bool] = field(
         default=True,
         metadata={"help": "whether using length reward"},
     )
-    # thinking_consistency: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "whether consider thinking consistency in the reward"},
-    # )
-    # reweight_answer: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "whether to reweight answer reward with thinking consistency"},
-    # )
-    # remove_length_bias: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "whether to remove length bias"},
-    # )
-    # remove_difficulty_bias: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "whether to remove difficulty bias"},
-    # )
     bonus_coefficient: Optional[float] = field(
         default=1.0,
         metadata={"help": "The coefficient for consistency bonus."}
     )
-    # prm_strategy: Optional[str] = field(
-    #     default=None,
-    #     metadata={"help": "The type of process reward function [consistent answer]"}, # [verify answer]
-    # )
-    # kl_strategy: Optional[str] = field(
-    #     default=None,
-    #     metadata={"help": "The type of kl penalty [answer_only, thinking_answer_separate, acc_answer_only, acc_thinking_answer_separate]"}, # [verify answer]
-    # )
     freeze_visual_encoder: Optional[bool] = field(
         default=False,
         metadata={"help": "Whether to freeze the visual encoder."},    
     )
-    # kl_lower_bound: Optional[float] = field(
-    #     default=None,
-    #     metadata={"help": "Lower bound for KL divergence constraint."},    
-    # )
     use_care: Optional[bool] = field(
         default=False,
         metadata={"help": "Whether to use consistency-aware reward enhancement."},    
@@ -108,22 +76,6 @@ class GRPOScriptArguments(ScriptArguments):
         default=None,
         metadata={"help": "The upper bound value for clamping reference likelihood."},    
     )
-    # strict_answer_mask: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "Whether to exclude special tokens like <answer> </answer> </imd>."},    
-    # )
-    # acc_kl_only: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "Whether constrain kl for accurate samples only"},    
-    # )
-    # better_acc_kl_only: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "Whether constrain kl for samples that achieves accuracy rewards better than the mean level only"},    
-    # )
-    # balanced_acc_kl: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "Whether minimize kl for better samples while maximize kl for wrong samples"},    
-    # )
     ref_ema_decay: Optional[float] = field(
         default=None,
         metadata={"help": "Decay used for updating the reference model using EMA"},    
@@ -132,18 +84,10 @@ class GRPOScriptArguments(ScriptArguments):
         default=None,
         metadata={"help": "Step interval used for updating the reference model using EMA"},    
     )
-    # use_reflection_prompt: Optional[bool] = field(
-    #     default=False,
-    #     metadata={"help": "Whether to use the reflection question prompt"},    
-    # )
     customized_top_p: Optional[float] = field(
         default=0.95,
         metadata={"help": "The top_p used for online sampling"},    
     )
-    # soft_prm_multiply_to: Optional[str] = field(
-    #     default='accuracy_rewards',
-    #     metadata={"help": "[accuracy_rewards | advantages]"},    
-    # )
     max_gen_len: Optional[int] = field(
         default=None,
         metadata={"help": "Maximum generation length for control"},    
@@ -391,11 +335,6 @@ def main(script_args, training_args, model_args):
 
     trainer_cls = Qwen2VLGRPOTrainerRefEMA
 
-    # print("using: ", trainer_cls)
-    # print(f"kl_strategy: {script_args.kl_strategy}\tbeta: {training_args.beta}")
-    # print(f"process_reward_model: {script_args.process_reward_model}\t\
-    #         prm_reward_coefficient: {script_args.prm_reward_coefficient}\t\
-    #         prm_strategy: {script_args.prm_strategy}\n")
 
     # Initialize the GRPO trainer
     trainer = trainer_cls(

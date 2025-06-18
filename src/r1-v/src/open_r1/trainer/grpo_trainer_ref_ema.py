@@ -306,45 +306,15 @@ class Qwen2VLGRPOTrainerRefEMA(EmaTrainer):
             num_return_sequences=self.num_generations,
             pad_token_id=pad_token_id,
         )
-        # self.shuffled_num_generations = self.num_generations // 2
-        # self.shuffled_generation_config = GenerationConfig(
-        #     max_new_tokens=self.max_completion_length,
-        #     do_sample=True,
-        #     top_p=script_args.customized_top_p,  
-        #     temperature=1, # HACK
-        #     num_return_sequences=self.shuffled_num_generations,
-        #     pad_token_id=pad_token_id,
-        # )
         
-        # self.dummy_generation_config = GenerationConfig(
-        #     max_new_tokens=1,
-        #     do_sample=True,
-        #     top_p=script_args.customized_top_p,  
-        #     temperature=1, # HACK
-        #     num_return_sequences=1,
-        #     pad_token_id=pad_token_id,
-        # )
         self.len_control = script_args.len_control
         self.beta = args.beta
-        # self.remove_length_bias = script_args.remove_length_bias
-        # self.remove_difficulty_bias = script_args.remove_difficulty_bias
-        # self.kl_strategy = script_args.kl_strategy
-        # self.kl_lower_bound = script_args.kl_lower_bound
-        # self.soft_prm = script_args.soft_prm
-        self.use_care = script_args.use_care # NOTE: replace soft_prm with soft_prm
-        # self.soft_prm_upper_bound = script_args.soft_prm_upper_bound
-        self.confidence_upper_bound = script_args.confidence_upper_bound # NOTE: replace soft_prm_upper_bound with confidence_upper_bound
-        # self.soft_prm_multiply_to = script_args.soft_prm_multiply_to
-        # self.soft_prm_margin = script_args.soft_prm_margin
-        self.consistency_margin = script_args.consistency_margin # NOTE: replace soft_prm_margin with consistency_margin
-        # self.strict_answer_mask = script_args.strict_answer_mask
-        # self.acc_kl_only = script_args.acc_kl_only
-        # self.better_acc_kl_only = script_args.better_acc_kl_only
-        # self.balanced_acc_kl = script_args.balanced_acc_kl
+        self.use_care = script_args.use_care 
+        self.confidence_upper_bound = script_args.confidence_upper_bound
+        self.consistency_margin = script_args.consistency_margin
         self.ref_ema_decay = script_args.ref_ema_decay
         self.ref_ema_update_every = script_args.ref_ema_update_every
-        # self.prm_reward_coefficient = script_args.prm_reward_coefficient 
-        self.bonus_coefficient = script_args.bonus_coefficient # NOTE: replace prm_reward_coefficient with bonus_coefficient
+        self.bonus_coefficient = script_args.bonus_coefficient
 
         self.max_gen_len = script_args.max_gen_len
         self.min_gen_len = script_args.min_gen_len
@@ -359,7 +329,6 @@ class Qwen2VLGRPOTrainerRefEMA(EmaTrainer):
             args=args,
             data_collator=data_collator,
             train_dataset=train_dataset,
-            # second_train_dataset=second_train_dataset,
             eval_dataset=eval_dataset,
             processing_class=processing_class,
             callbacks=callbacks,
@@ -470,25 +439,6 @@ class Qwen2VLGRPOTrainerRefEMA(EmaTrainer):
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
             
-        # if self.temporal and video_inputs:
-        #     indices = torch.randperm(video_inputs[0].size(0))
-        #     shuffled_video_inputs = [video_inputs[0][indices]]
-        #     shuffled_prompt_inputs = self.processing_class(
-        #         text=copy.deepcopy(prompts_text),
-        #         images=image_inputs,
-        #         videos=shuffled_video_inputs,
-        #         return_tensors="pt",
-        #         padding=True,
-        #         padding_side="left",
-        #         add_special_tokens=False,
-        #     )
-        #     shuffled_prompt_inputs = super()._prepare_inputs(shuffled_prompt_inputs)
-        #     shuffled_prompt_ids, shuffled_prompt_mask = shuffled_prompt_inputs["input_ids"], shuffled_prompt_inputs["attention_mask"]
-        #     if self.max_prompt_length is not None:
-        #         shuffled_prompt_ids = shuffled_prompt_ids[:, -self.max_prompt_length :]
-        #         shuffled_prompt_mask = shuffled_prompt_mask[:, -self.max_prompt_length :]
-        
-        
         # Generate completions
         with unwrap_model_for_generation(model, self.accelerator) as unwrapped_model:
             prompt_completion_ids = unwrapped_model.generate(**prompt_inputs, generation_config=self.generation_config)
