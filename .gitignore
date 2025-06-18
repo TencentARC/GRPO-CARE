@@ -1,0 +1,11 @@
+**/__pycache__
+**/.ipynb_checkpoints
+model_checkpoints
+**/local*
+local*
+*ckpt
+.idea
+**/*.bin
+**/*.log
+**/eval*.json*
+wandb
