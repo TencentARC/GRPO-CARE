@@ -29,7 +29,7 @@ Our work contributes a systematically designed benchmark and a generalizable pos
 - [2025/06/18] We release the training code for GRPO-CARE💥
 - [2025/03/31] We release the datasets of [SEED-Bench-R1](https://github.com/TencentARC/SEED-Bench-R1/) and the training / evaluation codes.
 
-## 📝Data
+## 📝SEED-Bench-R1
 
 SEED-Bench-R1 consists of a large-scale training set and a hierarchical three-level validation set for in-distribution, cross-environment, and cross-environment-task evaluations. The datasets can be downloaded from [HuggingFace](https://huggingface.co/datasets/TencentARC/SEED-Bench-R1). 
 
@@ -45,7 +45,13 @@ Questions from the human-verified validation data are formatted as multiple-choi
   <img src="./assets/question_examples.png" width="100%" height="100%" />
 </p>
 
+## 🚀GRPO-CARE
 
+<p align="center">
+  <img src="./assets/method.png" width="100%" height="100%" />
+</p>
+
+GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ($r^b_*$) and an adaptive consistency bonus ($r^c_*$). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
 
 ## 🔥Training Models
 
