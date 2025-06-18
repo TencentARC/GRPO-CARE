@@ -47,11 +47,12 @@ Questions from the human-verified validation data are formatted as multiple-choi
 
 ## 🚀GRPO-CARE
 
+GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ( $ r^b_* $ ) and an adaptive consistency bonus ( $ r^c_* $ ). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
+
 <p align="center">
   <img src="./assets/method.png" width="100%" height="100%" />
 </p>
 
-GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ($r^b_*$) and an adaptive consistency bonus ($r^c_*$). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
 
 ## 🔥Training Models
 
@@ -121,16 +122,16 @@ tail -f scripts/eval_general_video_bench.log
 
 ## 🙌References & Acknowledgements
 We sincerely thank the contributions from the open source community. The related projects are as follows:
-- [SEED-Bench-R1](https://github.com/TencentARC/SEED-Bench-R1)
-- [Video-R1](https://github.com/tulerfeng/Video-R1)
-- [Open-R1-Video](https://github.com/Wang-Xiaodong1899/Open-R1-Video)
-- [EgoPlan](https://github.com/ChenYi99/EgoPlan)
-- [EgoPlan-Bench2](https://github.com/qiulu66/EgoPlan-Bench2)
-- [open-r1-multimodal](https://github.com/EvolvingLMMs-Lab/open-r1-multimodal)
-- [lmm-r1](https://github.com/TideDra/lmm-r1)
-- [DeepSeek](https://github.com/deepseek-ai/DeepSeek-R1) 
-- [Open-R1](https://github.com/huggingface/open-r1)
-- [OpenRLHF](https://github.com/OpenRLHF/OpenRLHF)
+[SEED-Bench-R1](https://github.com/TencentARC/SEED-Bench-R1), 
+[Video-R1](https://github.com/tulerfeng/Video-R1), 
+[Open-R1-Video](https://github.com/Wang-Xiaodong1899/Open-R1-Video),
+[EgoPlan](https://github.com/ChenYi99/EgoPlan),
+[EgoPlan-Bench2](https://github.com/qiulu66/EgoPlan-Bench2),
+[open-r1-multimodal](https://github.com/EvolvingLMMs-Lab/open-r1-multimodal),
+[lmm-r1](https://github.com/TideDra/lmm-r1),
+[DeepSeek](https://github.com/deepseek-ai/DeepSeek-R1),
+[Open-R1](https://github.com/huggingface/open-r1),
+[OpenRLHF](https://github.com/OpenRLHF/OpenRLHF).
 
 ## ⭐License
 The video samples in SEED-Bench-R1 are collected from [Epic-Kitchens](https://epic-kitchens.github.io/2025) and [Ego4D](https://ego4d-data.org/). Users must follow the related licenses ([Epic-Kitchens](https://creativecommons.org/licenses/by-nc/4.0/) and [Ego4D](https://ego4ddataset.com/ego4d-license/)) to use these video samples for training and validation. SEED-Bench-R1 does not hold the copyright for these videos and the copyright belongs to the original owner of these datasets.
