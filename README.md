@@ -5,7 +5,7 @@ GRPO-CARE: Consistency-Aware Reinforcement Learning for Multimodal Reasoning
 
 <a href='https://arxiv.org/pdf/2503.24376'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> 
 <a href='https://huggingface.co/datasets/TencentARC/SEED-Bench-R1'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue'></a>
-<a href='https://huggingface.co/datasets/TencentARC/SEED-Bench-R1'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-green'></a>
+<a href='https://huggingface.co/TencentARC/GRPO-CARE'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-green'></a>
 </h1>
 
 

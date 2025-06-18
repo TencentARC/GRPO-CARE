@@ -3,7 +3,7 @@ export LOG_PATH="${OUTPUT_DIR}/debug_log_rollouts.txt"
 export CONFIDENCE_LOG_PATH="${OUTPUT_DIR}/debug_log_confidence.txt"
 export SEED_BENCH_R1_DATA_ROOT=[your path to seed-bench-r1 data]
 
-QWEN_PATH="${PROJECT_ROOT}/ckpt/Qwen2-VL-7B-Instruct"
+QWEN_PATH="${PROJECT_ROOT}/ckpt/Qwen2.5-VL-7B-Instruct"
 HF_DATASET="${SEED_BENCH_R1_DATA_ROOT}/annotations/training_6k.jsonl"
 
 
