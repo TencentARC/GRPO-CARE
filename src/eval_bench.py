@@ -101,13 +101,11 @@ processor.tokenizer = tokenizer
 if args.eval_mode == "seed_bench_r1":
     dataset_names = ['seed_bench_r1_L1','seed_bench_r1_L2','seed_bench_r1_L3']
 else:
-    # dataset_names = ['videomme','videommmu', 'mmvu', 'tempcompass', 'mvbench', 'vsibench']
-    dataset_names = ['mmvu', 'mvbench', 'vsibench', 'videomme','videommmu', 'tempcompass']
+    dataset_names = ['mmvu', 'videomme','videommmu', 'tempcompass', 'mvbench', 'vsibench']
 
 for dataset_name in dataset_names:
-    if ("Video-R1" in MODEL_PATH) and (dataset_name in ['mmvu', 'mvbench']):
+    if ("Video-R1" in MODEL_PATH) and (dataset_name in ['mmvu']):
         sampling_params = SamplingParams(
-            # do_sample=True,
             temperature=1,
             top_p=0.95,
             max_tokens=768,

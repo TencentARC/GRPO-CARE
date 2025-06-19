@@ -8,12 +8,13 @@ GRPO-CARE: Consistency-Aware Reinforcement Learning for Multimodal Reasoning
 <a href='https://huggingface.co/TencentARC/GRPO-CARE'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-green'></a>
 </h1>
 
-
 <p align="center">
   <img src="./assets/teaser.png" width="100%" height="100%" />
 </p>
 
 </div>
+
+> ⚠️ This project was migrated from [SEED-Bench-R1](https://github.com/TencentARC/SEED-Bench-R1).
 
 ## 🚀Introduction
 
@@ -26,7 +27,7 @@ By replacing the KL penalty with an adaptive, group-relative consistency bonus, 
 Our work contributes a systematically designed benchmark and a generalizable post-training framework, advancing the development of more interpretable and robust MLLMs.
 
 ## 🚩News
-- [2025/06/18] We release the training code for GRPO-CARE💥
+- [2025/06/18]💥We release the training code of **GRPO-CARE**, a novel consistency-aware RL framework, and the corresponding model checkpoints!
 - [2025/03/31] We release the datasets of [SEED-Bench-R1](https://github.com/TencentARC/SEED-Bench-R1/) and the training / evaluation codes.
 
 ## 📝SEED-Bench-R1
@@ -47,7 +48,7 @@ Questions from the human-verified validation data are formatted as multiple-choi
 
 ## 🚀GRPO-CARE
 
-GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ( $ r^b_* $ ) and an adaptive consistency bonus ( $ r^c_* $ ). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
+GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ($r^b_*$) and an adaptive consistency bonus ($r^c_*$). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
 
 <p align="center">
   <img src="./assets/method.png" width="100%" height="100%" />
@@ -96,6 +97,9 @@ Please refer to [run_grpo_care_margin0.01_video_r1.sh](scripts/run_grpo_care_mar
 
 
 ## 🤖Evaluating Models
+
+Download the model checkpoints from [Hugging Face](https://huggingface.co/TencentARC/GRPO-CARE) and put them under [./ckpt](./ckpt)
+.
 
 ### Evaluation on SEED-Bench-R1
 
