@@ -48,7 +48,7 @@ Questions from the human-verified validation data are formatted as multiple-choi
 
 ## 🚀GRPO-CARE
 
-GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ($r^b_*$) and an adaptive consistency bonus ($r^c_*$). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
+GRPO-CARE uses a two-tier reward system: a base reward for answer correctness ( $ r^b_* $ ) and an adaptive consistency bonus ( $ r^c_* $ ). The consistency bonus is given to high-accuracy samples whose reasoning-to-answer likelihood—estimated by a slowly updated (EMA) reference model—is higher than that of their group peers, conditioned on the multimodal question. The total reward, the sum of base and consistency rewards, is then used to compute advantages for updating the online model.
 
 <p align="center">
   <img src="./assets/method.png" width="100%" height="100%" />

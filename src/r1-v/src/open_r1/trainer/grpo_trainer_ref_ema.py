@@ -158,7 +158,6 @@ class Qwen2VLGRPOTrainerRefEMA(EmaTrainer):
         args: GRPOConfig = None,
         script_args = None,
         train_dataset: Optional[Union[Dataset, IterableDataset]] = None,
-        # second_train_dataset: Optional[Union[Dataset, IterableDataset, "datasets.Dataset"]] = None,
         eval_dataset: Optional[Union[Dataset, IterableDataset, dict[str, Union[Dataset, IterableDataset]]]] = None,
         processing_class: Optional[PreTrainedTokenizerBase] = None,
         reward_processing_classes: Optional[Union[PreTrainedTokenizerBase, list[PreTrainedTokenizerBase]]] = None,
