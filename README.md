@@ -3,7 +3,7 @@
 <h1>
 GRPO-CARE: Consistency-Aware Reinforcement Learning for Multimodal Reasoning
 
-<a href='https://arxiv.org/pdf/2503.24376'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> 
+<a href='https://arxiv.org/pdf/2506.16141'><img src='https://img.shields.io/badge/Paper-Arxiv-red'></a> 
 <a href='https://huggingface.co/datasets/TencentARC/SEED-Bench-R1'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset-blue'></a>
 <a href='https://huggingface.co/TencentARC/GRPO-CARE'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-green'></a>
 </h1>
@@ -145,10 +145,13 @@ The video samples in SEED-Bench-R1 are collected from [Epic-Kitchens](https://ep
 If you find our project helpful, hope you can star our repository and cite our paper as follows:
 
 ```bibtex
-@article{chen2025exploring,
-  title={Exploring the Effect of Reinforcement Learning on Video Understanding: Insights from SEED-Bench-R1},
-  author={Chen, Yi and Ge, Yuying and Wang, Rui and Ge, Yixiao and Qiu, Lu and Shan, Ying and Liu, Xihui},
-  journal={arXiv preprint arXiv:2503.24376},
-  year={2025}
+@misc{chen2025grpocareconsistencyawarereinforcementlearning,
+  title={GRPO-CARE: Consistency-Aware Reinforcement Learning for Multimodal Reasoning}, 
+  author={Yi Chen and Yuying Ge and Rui Wang and Yixiao Ge and Junhao Cheng and Ying Shan and Xihui Liu},
+  year={2025},
+  eprint={2506.16141},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2506.16141}, 
 }
 ```
